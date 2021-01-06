@@ -1,7 +1,7 @@
 # T1A3 - Love even?
 
 ## Github repo: 
-[Love even?]()
+[Love even?](https://github.com/Johnnsonkp/love-even)
 
 ## _purpose of the application
 
@@ -42,4 +42,25 @@ The quickie option only contains 5 questions and is less accurate compared to th
 
 #### _Full questionaire_
 
-The full questionaire contains 10 to 15 questions and is far more accurate than the quikie in determining your significants others level of affection towards you. This questionaire asks deep and meaningful questions, it requires more time to go through this option. The full questionaire will allow you to understand your significant other more intimately, whilst identifying he's or her level of affection towards you. This section also provides unique feedback which can be applied to the situation to strengthen the relationship.
+The full questionaire contains 10 to 15 questions and is far more accurate than the quikie in determining your significants others level of affection towards you. This questionaire asks deep and meaningful questions, it requires more time to go through this option. The full questionaire will allow you to understand your significant other more intimately, whilst identifying he's or her level of affection towards you. This section also provides unique feedback which can be applied to the situation to better strengthen the relationship...
+<br>
+<br>
+
+### Features
+
+1. User authententification:<br>
+    A new user is forced to create an account with a password, which is then stored on the database. Once the user logs in a personalised greeting message is displayed with the users name, goal and siginicant others name.
+
+2. Two modes: <br>
+Two set of options or modes are displayed to the user after login in, these are quickie (a minified version of the app for on the go users) and the full questionaire. Each question within each mode is uesed to guage the level of affection the users significant other has for the user. 
+
+3. Score and feedback: <br>
+Once all questions have been asnwered, a score is generated. The score can be cross referenced with the score sheet to determine the kind of partner the user is dealing with and their level of affection towards them. Personalised feedback is also provided to the user depending on their partners score.
+<br>
+<br>
+
+## User interaction outline
+
+- how the user will find out how to interact with / use each feature
+- how the user will interact with / use each feature
+- how errors will be handled by the application and displayed to the user
