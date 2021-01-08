@@ -2,6 +2,9 @@ require_relative "methods"
 require 'tty-prompt'
 require 'tty-font'
 require 'pastel'
+require 'tty-pie'
+require 'tty-progressbar'
+require 'terminal-table'
 
 pastel = Pastel.new
 prompt = TTY::Prompt.new

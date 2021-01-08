@@ -1,18 +1,23 @@
+require 'pastel'
 require "tty-prompt"
+require 'terminal-table'
+
 
 def menu_input_select
     puts " "
-    prompt = TTY::Prompt.new
+    notice = Pastel.new.red.on_black.bold.detach
+    prompt = TTY::Prompt.new(active_color: notice)
     choices = [
         {name: 'Create a new account', value: 1},
-        {name: 'Display user account details', value: 2},
+        {name: 'Login', value: 2},
         {name: 'Display running schedule', value: 3},
         {name: 'Update schedule', value: 4},
         {name: 'Quit', value: 5}
 
     ]
-    
+
     user_input = prompt.select("What would you like to do?", choices)
+   
 end
 
 def quit_program
