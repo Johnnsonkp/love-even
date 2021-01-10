@@ -19,10 +19,16 @@ while true
     when 1 #Create an account
         puts "New account"
         intermittent
+        create_user
     when 2 #Login
         puts "login"
         intermittent
+        user_login
     when 3 
+        # puts $database
+        intermittent
+        # get_database
+    when 4
         quit_program
     end
 end

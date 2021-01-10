@@ -11,3 +11,4 @@ gem "tty-pie"
 gem "tty-progressbar"
 gem "terminal-table"
 gem 'devise'
+gem 'jwt'
