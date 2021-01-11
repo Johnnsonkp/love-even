@@ -4,11 +4,13 @@ require 'tty-font'
 require 'terminal-table'
 require 'json'
 
+# database_json = File.open("./user/database.json", "a")
+
 pastel = Pastel.new
 prompt = TTY::Prompt.new
 font = TTY::Font.new(:standard)
 
-
+########################################### Menu input options #######################################################
 def menu_input_select
     puts " "
     pastel = Pastel.new
@@ -18,8 +20,8 @@ def menu_input_select
 
 
     choices = [
-        {name: 'Create a new account', value: 1},
-        {name: 'Login', value: 2},
+        {name: 'Login', value: 1},
+        {name: 'Create a new account', value: 2},
         {name: 'Display information', value: 3},
         {name: 'Quit', value: 4}
     ]
@@ -28,9 +30,8 @@ def menu_input_select
     puts pastel.on_black(pastel.red(font.write("LOVE EVEN?")))
     puts " "
     user_input = prompt.select("What would you like to do?", choices)
-   
 end
-
+########################################### quit program #######################################################
 def quit_program
     puts "Are you sure you want to quit?"
     answer = gets.chomp
@@ -40,12 +41,14 @@ def quit_program
     end
 end
 
+########################################### intermittent #######################################################
 def intermittent
     puts "Press any key to continue"
     gets
     system "clear"
 end
 
+########################################### short questionare #######################################################
 def short_questionare 
     pastel = Pastel.new
     font = TTY::Font.new(:standard)
@@ -117,6 +120,7 @@ def short_questionare
     return out
 end
 
+########################################### Long questionare #######################################################
 def long_questionare
     pastel = Pastel.new
     font = TTY::Font.new(:standard)
@@ -134,6 +138,7 @@ def long_questionare
 
 end
 
+########################################### questionare select #######################################################
 def choose_questionare_type
     pastel = Pastel.new
     font = TTY::Font.new(:standard)
@@ -158,58 +163,97 @@ def choose_questionare_type
         long_questionare
     end
 
-    # if (user_input == 1)
-    #      short_questionare
-    # else  
-    #      long_questionare
-    # end
-    # case menu_input_select
-    # when 1 #Create an account
-    #     puts "New account"
-    #     intermittent
-    #     create_user
-    # when 2 #Login
-    #     puts "login"
-    #     intermittent
-    #     user_login
-
 end
+
+########################################### Create user #######################################################
 def create_user
-    $database = []
+    require 'json'
+
+    database = {}
     temp = {}
     puts "Whats is your name?"
     name = gets.chomp
-    temp['name'] = name
+    # temp['name'] = name
+    database['name'] =name
 
     puts "Whats your date of birth?(dd/mm/yyyy)"
     dob = gets.chomp
-    temp['dob'] = dob
+    # temp['dob'] = dob
+    database['dob'] =dob
 
     puts "Whats is your current relationship status?"
     relationship = gets.chomp
-    temp['relationship'] = relationship
+    # temp['relationship'] = relationship
+    database['relationship'] =relationship
 
     puts "What is your ideal relationship status?"
     ideal_relationship = gets.chomp
-    temp['ideal_relationship'] = ideal_relationship
-    questions = choose_questionare_type
-    temp['questions'] = questions 
-    temp_j = temp.to_json
+    # temp['ideal_relationship'] = ideal_relationship
+    database['ideal_relationship'] =ideal_relationship
+
+    # questions = choose_questionare_type
+    # # temp['questions'] = questions 
+    # database['questions'] = questions
+
+    # $temp_j = temp.to_json
+    database = database.to_json
     # p temp_j
     #render :json => temp_j
+
+    
     File.open("./user/database.json", "a") do |f|
-        f.write(temp_j)
+        f.write(database)
     end
-    #$database.append(temp)
+    # #$database.append(temp)
+    # # JSON.parse $temp_j
 
-    # p $database
+    # file = open("./user/database.json")
+    # json = file.read
+
+    # parsed = JSON.parse(json)
+
+    # puts parsed
+
 
 end
 
-
+########################################### Get user information #######################################################
 def get_database
-    puts $database
+    require "json"
+    require 'json/pure'
     puts "its working!!"
+
+    # database = File.readlines("./user/database.json")
+    
+    # database.
+
+    # array = File.readlines(@file_path).map {|name| name.strip}
+
+    file = open("./user/database.json")
+    json = file.read
+    parsed = JSON.parse(json)
+    $parsed = parsed
+
+    puts "your name is #{parsed['name']}"
+    puts "You were born on #{parsed['dob']}"
+    puts "You're currently #{parsed['relationship']}"
+    puts "But you wish your were #{parsed['ideal_relationship']}"
 end
 
+########################################### user_login
+#######################################################
 
+def user_login
+    file = open("./user/database.json")
+    json = file.read
+    parsed = JSON.parse(json)
+
+    puts "Enter name"
+    name = gets.chomp
+
+    if (name == parsed['name'])
+        puts "Welcome #{parsed['name']}"
+    else
+        puts "name is invalid, try again!"
+    end
+end

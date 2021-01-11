@@ -12,3 +12,5 @@ gem "tty-progressbar"
 gem "terminal-table"
 gem 'devise'
 gem 'jwt'
+gem 'json'
+gem 'json/pure'
