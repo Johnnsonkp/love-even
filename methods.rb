@@ -3,12 +3,39 @@ require "tty-prompt"
 require 'tty-font'
 require 'terminal-table'
 require 'json'
+require 'tty-box'
 
 # database_json = File.open("./user/database.json", "a")
-
 pastel = Pastel.new
 prompt = TTY::Prompt.new
 font = TTY::Font.new(:standard)
+
+########################################### Welcome message #######################################################
+def welcome_message
+    require 'tty-box'
+
+    pastel = Pastel.new
+    font = TTY::Font.new(:standard)
+    notice = Pastel.new.red.on_black.bold.detach
+    prompt = TTY::Prompt.new(active_color: notice)
+
+    # welcome_msg = pastel.on_black(pastel.red(font.write("LOVE EVEN?")))
+
+    box = TTY::Box.frame(width: 100, height: 10, padding: 1, border: :thick, align: :center, title: {top_left: " <3 ", bottom_right: "v1.0"}, style: {  fg: :blue, bg: :black}) do
+        pastel.red(font.write("     LOVE EVEN?    " ))
+    end
+    print box 
+
+    # puts pastel.on_black(pastel.red(TTY::Box.frame( font.write("LOVE EVEN?"))))
+
+end
+
+def greeting
+    puts "Welcome to Love Even?"
+    puts " "
+    puts "The number 1 app for empowering users into making better informed choices when dating"
+    intermittent
+end
 
 ########################################### Menu input options #######################################################
 def menu_input_select
@@ -27,7 +54,7 @@ def menu_input_select
     ]
 
     system "clear"
-    puts pastel.on_black(pastel.red(font.write("LOVE EVEN?")))
+    welcome_message
     puts " "
     user_input = prompt.select("What would you like to do?", choices)
 end
@@ -55,22 +82,22 @@ def short_questionare
     notice = Pastel.new.red.on_black.bold.detach
     prompt = TTY::Prompt.new(active_color: notice)
 
+    system "clear"
+    welcome_message
+    puts " "
 
     short_q = {}
-    puts "What is your significant partner looking for?"
 
+    puts "How long was your longest relationship? "
     partners = [
-        {name: 'partner one', value: 1},
-        {name: 'partner two', value: 2},
-        {name: 'partner three', value: 3},
-        {name: 'partner four', value: 4}
+        {name: '6 months or less', value: 1},
+        {name: '9 months or less', value: 2},
+        {name: '12 months or less', value: 3},
+        {name: '1 year+', value: 4}
     ]
-
     system "clear"
-    #puts pastel.on_black(pastel.red(font.write("LOVE EVEN?")))
     puts " "
     partner1 = prompt.select("What is your significant partner looking for?", partners)
-
     short_q['partner1'] = partner1
 
     puts "What is your significant partner looking for?"
@@ -139,31 +166,30 @@ def long_questionare
 end
 
 ########################################### questionare select #######################################################
-def choose_questionare_type
-    pastel = Pastel.new
-    font = TTY::Font.new(:standard)
-    notice = Pastel.new.red.on_black.bold.detach
-    prompt = TTY::Prompt.new(active_color: notice)
+# def choose_questionare_type
+#     pastel = Pastel.new
+#     font = TTY::Font.new(:standard)
+#     notice = Pastel.new.red.on_black.bold.detach
+#     prompt = TTY::Prompt.new(active_color: notice)
     
-    choices = [
-        {name: 'Quick Mode', value: 1},
-        {name: 'Full questionaire', value: 2},
-    ]
+#     choices = [
+#         {name: 'Quick Mode', value: 1},
+#         {name: 'Full questionaire', value: 2},
+#     ]
+#     system "clear"
+#     # puts pastel.on_black(pastel.red(font.write("LOVE EVEN?")))
+#     puts " "
+#     user_input = prompt.select("Choose questionare type?", choices)
+#     case user_input
+#     when 1
+#         #intermittent
+#         short_questionare
+#     when 2 
+#         #intermittent
+#         long_questionare
+#     end
 
-    system "clear"
-    # puts pastel.on_black(pastel.red(font.write("LOVE EVEN?")))
-    puts " "
-    user_input = prompt.select("Choose questionare type?", choices)
-    case user_input
-    when 1
-        #intermittent
-        short_questionare
-    when 2 
-        #intermittent
-        long_questionare
-    end
-
-end
+# end
 
 ########################################### Create user #######################################################
 def create_user
@@ -218,27 +244,21 @@ def create_user
 end
 
 ########################################### Get user information #######################################################
-def get_database
-    require "json"
-    require 'json/pure'
-    puts "its working!!"
+# def get_database
+#     require "json"
+#     require 'json/pure'
+#     puts "its working!!"
 
-    # database = File.readlines("./user/database.json")
-    
-    # database.
+#     file = open("./user/database.json")
+#     json = file.read
+#     parsed = JSON.parse(json)
+#     $parsed = parsed
 
-    # array = File.readlines(@file_path).map {|name| name.strip}
-
-    file = open("./user/database.json")
-    json = file.read
-    parsed = JSON.parse(json)
-    $parsed = parsed
-
-    puts "your name is #{parsed['name']}"
-    puts "You were born on #{parsed['dob']}"
-    puts "You're currently #{parsed['relationship']}"
-    puts "But you wish your were #{parsed['ideal_relationship']}"
-end
+#     puts "your name is #{parsed['name']}"
+#     puts "You were born on #{parsed['dob']}"
+#     puts "You're currently #{parsed['relationship']}"
+#     puts "But you wish your were #{parsed['ideal_relationship']}"
+# end
 
 ########################################### user_login
 #######################################################
@@ -256,4 +276,24 @@ def user_login
     else
         puts "name is invalid, try again!"
     end
+end
+
+########################################### display information
+#######################################################
+def what_to_display
+    pastel = Pastel.new
+    font = TTY::Font.new(:standard)
+    notice = Pastel.new.red.on_black.bold.detach
+    prompt = TTY::Prompt.new(active_color: notice)
+
+
+    
+    choices = [
+        {name: 'User information', value: 1},
+        {name: 'Significant other information', value: 2},
+    ]
+    system "clear"
+    welcome_message
+    puts " "
+    user_input = prompt.select("What to display?", choices)
 end

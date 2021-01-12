@@ -7,10 +7,10 @@ git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
 # gem "rails"
 gem 'tty-font'
 gem "pastel"
-gem "tty-pie"
-gem "tty-progressbar"
+# gem "tty-pie"
+# gem "tty-progressbar"
 gem "terminal-table"
-gem 'devise'
-gem 'jwt'
+# gem 'devise'
+# gem 'jwt'
 gem 'json'
-gem 'json/pure'
+gem 'tty-box'
