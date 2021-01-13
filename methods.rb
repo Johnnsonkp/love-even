@@ -29,7 +29,29 @@ def welcome_message
     # puts pastel.on_black(pastel.red(TTY::Box.frame( font.write("LOVE EVEN?"))))
 
 end
+########################################### Menu input options #######################################################
+def inner_menu
+    puts " "
+    pastel = Pastel.new
+    font = TTY::Font.new(:standard)
+    notice = Pastel.new.red.on_black.bold.detach
+    prompt = TTY::Prompt.new(active_color: notice)
 
+
+    choices = [
+        {name: 'Update information', value: 1},
+        {name: 'Display information', value: 2},
+        {name: 'Delete information', value: 3},
+        {name: 'Quit', value: 4}
+    ]
+
+    system "clear"
+    welcome_message
+    puts " "
+    user_input = prompt.select("What would you like to do?", choices)
+end
+
+########################################### Greeting #######################################################
 def greeting
     puts "Welcome to Love Even?"
     puts " "
@@ -291,6 +313,7 @@ def what_to_display
     choices = [
         {name: 'User information', value: 1},
         {name: 'Significant other information', value: 2},
+        {name: 'Go back', value: 3}
     ]
     system "clear"
     welcome_message

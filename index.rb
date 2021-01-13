@@ -23,24 +23,59 @@ greeting
 while true
     case menu_input_select
     when 1 #Login
-        puts "login"
-        # intermittent
-        user_login
-        intermittent
+        login = true
+        while login 
+            user_login
+            login = false
+            intermittent
+            case inner_menu
+            when 1
+                user_details = true
+                while user_details
+                    user.create_user
+                    user.choose_questionare_type
+                    user_details = false
+                end
+            when 2
+                case what_to_display
+                when 1
+                    user.get_database
+                    intermittent
+                when 2
+                    puts "significant others information here"
+                    intermittent
+                end
+            when 3
+                puts "menu option 3"
+            when 4
+                quit_program
+            end
+        end
     when 2 #Create an account
         intermittent
         user.create_user
         user.choose_questionare_type
         # create_user
-    when 3 
-        case what_to_display
-        when 1
-            user.get_database
-            intermittent
-        when 2
-            puts "significant others information here"
-            intermittent
+    when 3
+        puts login
+        intermittent
+        # if (login = true)
+        #     puts "Login in to view details"
+        # end
+        while login == false
+            case what_to_display
+            when 1
+                user.get_database
+                intermittent
+            when 2
+                puts "significant others information here"
+                intermittent
+            when 3
+                login = true
+                intermittent
+            end
         end
+        
     when 4
         quit_program
     end
