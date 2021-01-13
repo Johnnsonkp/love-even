@@ -56,12 +56,12 @@ while true
         user.create_user
         user.choose_questionare_type
         # create_user
-    when 3
-        puts login
+    when 3 #Display information
+        if login != false
+            puts "Login in to view details..."
+            puts " "
+        end
         intermittent
-        # if (login = true)
-        #     puts "Login in to view details"
-        # end
         while login == false
             case what_to_display
             when 1
