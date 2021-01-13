@@ -13,22 +13,18 @@ font = TTY::Font.new(:standard)
 ########################################### Welcome message #######################################################
 def welcome_message
     require 'tty-box'
-
     pastel = Pastel.new
     font = TTY::Font.new(:standard)
     notice = Pastel.new.red.on_black.bold.detach
     prompt = TTY::Prompt.new(active_color: notice)
 
-    # welcome_msg = pastel.on_black(pastel.red(font.write("LOVE EVEN?")))
-
+    # Welcome message box styling and color
     box = TTY::Box.frame(width: 100, height: 10, padding: 1, border: :thick, align: :center, title: {top_left: " <3 ", bottom_right: "v1.0"}, style: {  fg: :blue, bg: :black}) do
         pastel.red(font.write("     LOVE EVEN?    " ))
     end
     print box 
-
-    # puts pastel.on_black(pastel.red(TTY::Box.frame( font.write("LOVE EVEN?"))))
-
 end
+
 ########################################### Menu input options #######################################################
 def inner_menu
     puts " "
@@ -105,12 +101,11 @@ def short_questionare
     prompt = TTY::Prompt.new(active_color: notice)
 
     system "clear"
-    welcome_message
     puts " "
 
+    ######### Question 1 #########
     short_q = {}
 
-    puts "How long was your longest relationship? "
     partners = [
         {name: '6 months or less', value: 1},
         {name: '9 months or less', value: 2},
@@ -119,39 +114,39 @@ def short_questionare
     ]
     system "clear"
     puts " "
-    partner1 = prompt.select("What is your significant partner looking for?", partners)
+    welcome_message
+    partner1 = prompt.select("How long was your longest relationship?", partners)
     short_q['partner1'] = partner1
 
-    puts "What is your significant partner looking for?"
-
+    ######### Question 2 #########
     partners = [
-        {name: 'partner five', value: 1},
-        {name: 'partner six', value: 2},
-        {name: 'partner seven', value: 3},
-        {name: 'partner eight', value: 4}
+        {name: 'Never', value: 1},
+        {name: 'Yes, I am a regular', value: 2},
+        {name: 'Yeah kinda', value: 3},
+        {name: 'Yeah, once in a while', value: 4}
     ]
 
     system "clear"
-    #puts pastel.on_black(pastel.red(font.write("LOVE EVEN?")))
     puts " "
-    partner2 = prompt.select("What is your significant partner looking for?", partners)
-    puts "What is your significant partner looking for?"
-
+    welcome_message
+    partner2 = prompt.select("Do you come here often?", partners)
     short_q['partner2'] = partner2
 
+    ######### Question 3 #########
     partners = [
-        {name: 'partner nine', value: 1},
-        {name: 'partner ten', value: 2},
+        {name: '5ft or under', value: 1},
+        {name: '5ft 5 inches or under', value: 2},
         {name: 'partner eleven', value: 3},
-        {name: 'partner twelve', value: 4}
+        {name: '6ft plus', value: 4}
     ]
 
     system "clear"
-    #puts pastel.on_black(pastel.red(font.write("LOVE EVEN?")))
     puts " "
-    partner3 = prompt.select("What is your significant partner looking for?", partners)
+    welcome_message
+    partner3 = prompt.select("How tall are you?", partners)
+
+    ######### Question 4 #########
     short_q['partner3'] = partner3
-    puts "What is your significant partner looking for?"
 
     partners = [
         {name: 'partner thirteen', value: 1},
@@ -161,7 +156,6 @@ def short_questionare
     ]
 
     system "clear"
-    #puts pastel.on_black(pastel.red(font.write("LOVE EVEN?")))
     puts " "
     partner4 = prompt.select("What is your significant partner looking for?", partners)
     short_q['partner4'] = partner4 
