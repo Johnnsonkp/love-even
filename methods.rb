@@ -49,9 +49,17 @@ end
 
 ########################################### Greeting #######################################################
 def greeting
+    require 'pastel'
+    require 'tty-font'
+    pastel = Pastel.new
+    notice = Pastel.new.red.on_black.bold.detach
+    font = TTY::Font.new(:standard)
+    
+    puts " "
     puts "Welcome to Love Even?"
     puts " "
-    puts "The number 1 app for empowering users into making better informed choices when dating"
+    puts pastel.red(notice["The number one app for empowering users \ninto making better informed romantic decisions"])
+    puts " "
     intermittent
 end
 
@@ -284,10 +292,16 @@ def user_login
     json = file.read
     parsed = JSON.parse(json)
 
-    puts "Enter name"
-    name = gets.chomp
+    puts " "
+    puts "Enter username"
+    username = gets.chomp
+    puts " "
 
-    if (name == parsed['name'])
+    puts "Enter password"
+    password = gets.chomp
+    puts " "
+
+    if (username == parsed['username'] and password == parsed['password'])
         puts "Welcome #{parsed['name']}"
     else
         puts "name is invalid, try again!"
