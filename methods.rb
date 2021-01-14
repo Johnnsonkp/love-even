@@ -58,7 +58,7 @@ def greeting
     puts " "
     puts "Welcome to Love Even?"
     puts " "
-    puts pastel.red(notice["The number one app for empowering users \ninto making better informed romantic decisions"])
+    puts pastel.red(notice["Empowering users into making\nbetter informed romantic decisions"])
     puts " "
     intermittent
 end
@@ -288,23 +288,37 @@ end
 #######################################################
 
 def user_login
+    require 'tty-box'
+    require 'pastel'
+    
+    pastel = Pastel.new
     file = open("./user/database.json")
     json = file.read
     parsed = JSON.parse(json)
+    font = TTY::Font.new(:standard)
+    notice = Pastel.new.red.on_black.bold.detach
 
     puts " "
-    puts "Enter username"
+    box = TTY::Box.frame(width: 32, height: 4, padding: 1, border: :thick, align: :center, style: {  fg: :blue, bg: :black}) do
+        pastel.red("Enter username" )
+    end
+    print box 
+    # puts "Enter username"
     username = gets.chomp
     puts " "
 
-    puts "Enter password"
+    box = TTY::Box.frame(width: 32, height: 4, padding: 1, border: :thick, align: :center, style: {  fg: :blue, bg: :black}) do
+        pastel.red("Enter Password" )
+    end
+    print box 
+    # puts "Enter password"
     password = gets.chomp
     puts " "
 
     if (username == parsed['username'] and password == parsed['password'])
-        puts "Welcome #{parsed['name']}"
+        puts pastel.red(notice["Welcome #{parsed['name']}"])
     else
-        puts "name is invalid, try again!"
+        puts "name is invalid, try again!" 
     end
 end
 
@@ -316,8 +330,6 @@ def what_to_display
     notice = Pastel.new.red.on_black.bold.detach
     prompt = TTY::Prompt.new(active_color: notice)
 
-
-    
     choices = [
         {name: 'User information', value: 1},
         {name: 'Significant other information', value: 2},

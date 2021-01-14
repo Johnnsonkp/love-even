@@ -1,6 +1,6 @@
 class User
 
-    attr_reader :create_user, :choose_questionare_type, :get_database
+    attr_reader :create_user, :choose_questionare_type, :get_database, :delete
 
     def initialize(create_user, parsed)
         @create_user = create_user
@@ -34,15 +34,32 @@ class User
 
     def get_database
         require "json"
-    
+        require 'terminal-table'
+
+        pastel = Pastel.new
+        font = TTY::Font.new(:standard)
+        notice = Pastel.new.red.on_black.bold.detach
         file = open("./user/database.json")
         json = file.read
         parsed = JSON.parse(json)
-    
-        puts "your name is #{parsed['name']}"
-        puts "You were born on #{parsed['dob']}"
-        puts "You're currently #{parsed['relationship']}"
-        puts "But you wish your were #{parsed['ideal_relationship']}"
+        
+        user_data = {
+            :Name => "#{parsed['name']}",
+            :DOB => "#{parsed['dob']}",
+            :Current_relationship_status => "#{parsed['relationship']}",
+            :Ideal_relationship_status => "#{parsed['ideal_relationship']}"
+        }
+        
+        puts " "
+        puts pastel.red.on_black.bold("Current user" )
+        user_data.each do |key, value|
+            rows = []
+            rows << ["#{value}"]
+            table = Terminal::Table.new :headings => ["#{key}"], :rows => rows
+            table.align_column(1, :center)
+            table.style = {:width => 150, :padding_left => 3, :border_x => "=", :border_i => "x"}
+            puts table
+        end
     end
 
     def create_user
@@ -90,4 +107,21 @@ class User
         # end
     
     end 
+
+    def delete_user
+        require 'json'
+        file = File.read("./user/database.json")
+        data_hash = JSON.parse(file)
+
+        puts "What would you like to delete?"
+        str = gets.chomp
+
+        # data_hash.each do |j|
+        #     j.delete('str')
+        # end
+        puts str
+        data_hash.delete["str"]
+        File.write('./user/database.json', JSON.dump(data_hash))
+
+    end
 end

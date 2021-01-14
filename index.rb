@@ -45,8 +45,9 @@ while true
                     puts "significant others information here"
                     intermittent
                 end
-            when 3
-                puts "menu option 3"
+            when 3 #delete user info
+                user.delete_user
+                intermittent
             when 4
                 quit_program
             end
